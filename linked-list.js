@@ -26,7 +26,6 @@ class LinkedList {
     }
   }
   get(index) {
-    // index = 2
     let currentNode = this.first;
     let count = 1;
     while (index !== count - 1) {
@@ -38,6 +37,22 @@ class LinkedList {
     }
 
     return currentNode ? currentNode.value : undefined;
+  }
+  reverse() {
+    if (this.first === undefined) {
+      return;
+    }
+    let currentNode = this.first;
+    let prev;
+    let next;
+    while (currentNode.next !== undefined) {
+      next = currentNode.next;
+      currentNode.next = prev;
+      prev = currentNode;
+      currentNode = next;
+    }
+    this.first = currentNode;
+    this.first.next = prev;
   }
 }
 
@@ -51,8 +66,9 @@ class Node {
 const list = new LinkedList();
 
 list.push(5);
+list.push(4);
 list.push(3);
-console.log(list.length());
-console.log(list.get(0));
-console.log(list.get(1));
-console.log(list.get(2));
+list.push(2);
+list.push(1);
+list.reverse();
+console.log(list.get(4) === 5 ? "REVERSE WORKS 🌈" : "REVERSE DOESN'T WORK ⛈");
